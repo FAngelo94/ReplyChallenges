@@ -1,0 +1,107 @@
+To fight the demons, Pandora’s character consumes a special resource called
+stamina. She starts the quest with a certain amount Si of stamina, consumes
+it when battling enemies and recovers it after some time until she reaches a
+maximum amount of Smax. Exceeding stamina will be lost.
+The quest involves a total of T turns. In each turn you can decide to face one
+from a list of D demons. Each demon is defined by:
+• Sc: stamina lost by Pandora after defeating the demon
+• Tr: number of turns needed to recover stamina after the fight
+• Sr: amount of stamina recovered Tr turns after the fight
+• Na: number of turns in which you’ll earn fragments for defeating the demon
+• List of Na elements where 8ai; i 2 [0;Na) : ai 2 N. Each ai represents the
+number of fragments earned in the i􀀀th turn after the fight for performing
+the ritual to put the fragments back in the jar
+You need to provide the list of demons you want to face in the journey.
+As Pandora:
+• You cannot defeat more than one demon in the same turn
+• You can only face a demon if you have enough stamina
+• You cannot fight the same demon more than once
+• After defeating a demon you will recover some stamina after a certain number
+of turns have passed
+• Your stamina will always be included in the interval [0; Smax]
+• The reward mechanism processes the list of demons you decided to face,
+in the order you faced them. If you don’t have enough stamina to face an
+enemy, the system will wait until you have enough stamina required to face
+the demon or the total number of turns have passed.
+• In any given turn, you first recover your stamina, then face an enemy, then
+collect the fragments
+• In each turn, if applicable, you recover all the fragments that every defeated
+demon has granted you
+• In each turn, if applicable, you recover all the stamina that every defeated
+demon has granted you
+• You can collect fragments and facing demons for a maximum of T turns.
+After that, no other demon can be faced nor any fragment can be collected.
+Your total score is the sum of fragments you collected at the end of T turns.
+2
+Pandora’s Adventures in Replyland
+2 Input format
+The input file is a regular ASCII text file. Each line of the input file is separated by
+a single “\n” character “UNIX-style”). If a line contains multiple data, each value
+is separated by a single whitespace character. The first row of the input file will
+be composed of 4 integer numbers:
+• The integer Si is the amount of stamina the player starts with
+• The integer Smax is the maximum amount of stamina you can cumulate
+during the fight
+• The integer T is the number of turns available
+• The integer D is the number of demons available
+Then, D lines follow, each describing one demon. Each demon line contains the
+following integer data:
+• The integer Sc is the amount of stamina points you consume to face the
+demon; you cannot face a demon if you don’t have at least this amount of
+stamina;
+• The integer Tr is the number of turns you have to wait before recovering
+stamina;
+• The integer Sr is the amount of stamina that you recover after Tr turns
+have passed;
+• The integer Na is the number of turns you’ll earn fragments after defeating
+the demon;
+• A sequence of Na integers ai; i 2 [0;Na) represents the amount of fragments
+you’ll earn in the i-th subsequent turn after the fight.
+3 Output format
+The output file must be a regular ASCII text file. Each line of the output file must
+be separated by a single “\n”. Each line of this file must contain the 0-based
+index of the demon to face. The demons will be faced in the order provided.
+The output file is valid if:
+• it contains only numbers and newlines
+• for each index i; i 2 [0;D)
+• each index is present in the file only once
+3
+Pandora’s Adventures in Replyland
+4 Scoring rules
+Given a list E of N defeated enemies, En is the n-th enemy, Tn is the turn in
+which the n-th enemy is defeated, An is the list of fragments for the n-th enemy,
+of length len(An), and An[i] is the i-th reward of the list.
+T is the number of turns in the simulation.
+Given an enemy En, the reward Rn obtained by defeating them is the sum
+of all the accumulated fragments starting from the turn in which the enemy is
+defeated, before the end of the simulation:
+Rn =
+min(len(AXn);T􀀀Tn)􀀀1
+i=0
+An[i] (1)
+The total reward R is the sum of all the scores:
+R =
+NX􀀀1
+i=0
+Ri (2)
+Formally:
+T ! number of turns in the simulation
+E = [E0;E1; :::;En􀀀1] ! enemy
+T = [T0; T1; :::; Tn􀀀1] ! turn in which the Ei enemy is defeated
+AE0 = [A0;A1; :::;An] ! reward array for enemy E0
+AE1 = [A0;A1; :::;Am] ! reward array for enemy E1
+:::
+Rn =
+P
+0imin(len(AEn);T􀀀Tn)􀀀1 AEn[i] ! score for enemy N
+R =
+P
+0iN􀀀1 Ri ! total score
+5 Constraints
+• All the indices, loops and iterations start from 0
+• T  1:000:000
+• D  100:000
+• All the stamina values S 2 [0; 100:000]
+• Tr 2 [1; T]
+• Na 2 [0; 100:000]
+• ai 2 [0; 10:000]
